@@ -13,6 +13,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 import { GlobalContext } from "../context/GlobalContext";
 import Layout from "../components/layout/Layout";
+import useSessionStorage from "../hooks/useSessionStorage";
 import {
   webGenTextToText,
   parseInputWeb,
@@ -48,11 +49,14 @@ function TranslatorPage() {
   const [mode, setMode] = React.useState<Mode>("g->m");
   const [displayMode, setDisplayMode] = React.useState<Mode>("g->m");
 
-  const [input, setInput] = React.useState<string>(`{
+  const [input, setInput] = useSessionStorage(
+    "so3web-translator-input",
+    `{
   "top": [],
   "bot": [],
   "vertices": []
-}`);
+}`
+  );
   const [output, setOutput] = React.useState<string>("");
 
   const parseInput = async () => {
@@ -116,7 +120,9 @@ function TranslatorPage() {
     event: React.MouseEvent<HTMLElement>,
     newMode: Mode
   ) => {
-    setMode(newMode);
+    if (newMode !== null) {
+      setMode(newMode);
+    }
   };
 
   return (
@@ -166,7 +172,7 @@ function TranslatorPage() {
           size="small"
           value={mode}
           onChange={handleChange}
-          exclusive={true}
+          exclusive
           sx={{ margin: "0 auto" }}
         >
           <ToggleButtonLowercase value="g->w" disableRipple>
