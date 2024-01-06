@@ -157,6 +157,13 @@ function TranslatorPage() {
             }}
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            helperText={
+              mode.charAt(0) === "g"
+                ? "JSON of the type {top: v[], bot: v[], vertices: [v,v[]]}, and vertices v :: string | number. For the best experience, use a planar embedding where 'top' and 'bot' are ordererd left-to-right, and the neighbours (in vertices[1]) are in clockwise order."
+                : mode.charAt(0) === "w"
+                ? "Rows of [iunsm] (ie. id/cup/cap/split/merge) separated by new lines."
+                : ""
+            }
           />
           <Button
             variant="contained"
