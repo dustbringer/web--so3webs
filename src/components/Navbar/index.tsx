@@ -3,10 +3,12 @@ import { styled } from "@mui/material/styles";
 // import { useMediaQuery } from "react-responsive";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { MathJax } from "better-react-mathjax";
+import { InlineMath, BlockMath } from "react-katex";
 
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -92,6 +94,15 @@ const ResponsiveDropdownList = styled(DropdownList)`
   }
 `;
 
+const InlineMathSmall = (props: React.PropsWithChildren) => (
+  <Box
+    sx={{ fontSize: "0.9em", "& .katex, & .base": { lineHeight: 0 } }}
+    component="span"
+  >
+    <InlineMath>{props.children}</InlineMath>
+  </Box>
+);
+
 function Navbar() {
   const theme = useTheme();
 
@@ -103,7 +114,7 @@ function Navbar() {
             <MyLink to="/">
               <StyledDivRowSpaceBetween>
                 <TitleTypography variant="h5" theme={theme}>
-                  <MathJax inline>{"$SO(3)$"}</MathJax> Webs
+                  <InlineMathSmall>{"SO(3)"}</InlineMathSmall> Webs
                 </TitleTypography>
               </StyledDivRowSpaceBetween>
             </MyLink>
