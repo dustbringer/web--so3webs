@@ -1,8 +1,8 @@
 import * as math from "mathjs";
 
-import * as W from "./Web";
-import Web from "./Web";
-import { WebGenerator as WG } from "./Web";
+import * as W from ".";
+import Web from ".";
+import { WebGenerator as WG } from ".";
 import webToMatrix from "./webToMatrix";
 
 // Examples

@@ -1,9 +1,9 @@
 export enum WebGenerator {
-  Id,
-  Cup,
-  Cap,
-  Merge,
-  Split,
+  Id, // 0
+  Cup, // 1
+  Cap, // 2
+  Merge, // 3
+  Split, // 4
 }
 
 export function inputSize(webGrid: WebGenerator[]): number {
@@ -80,23 +80,35 @@ class Web {
     else return 0;
   }
 
-  // Vertical concatenation
-  concatV(w: Web) {
-    if (this.output === w.input) return new Web(this.web.concat(w.web));
+  // // Vertical concatenation
+  // concatV(w: Web) {
+  //   if (this.output === w.input) return new Web(this.web.concat(w.web));
+  // }
+
+  // // Horizontal concatenation (on the right)
+  // concatH(w: Web) {
+  //   const maxW = this.height > w.height ? this : w;
+  //   const minW = this.height > w.height ? w : this;
+
+  //   maxW.web.map((r, i) =>
+  //     // Pad the smaller one's output with id
+  //     r.concat(minW.height > i ? minW.web[i] : createIds(minW.output))
+  //   );
+  // }
+
+  flatten(): Web {
+    const topWidth = this.output;
+    let web = this.web.map((r) => [...r]); // copy the web
+    if (this.output === 0) return new Web(web);
+
+    // Pad everything with id on the right
+    web = web.map((r) => [...r, ...createIds(topWidth)]);
+    for (let i = 1; i <= topWidth; i++) {
+      const nIds = topWidth - i;
+      web.push([...createIds(nIds), WebGenerator.Cap, ...createIds(nIds)]);
+    }
+    return new Web(web);
   }
-
-  // Horizontal concatenation (on the right)
-  concatH(w: Web) {
-    const maxW = this.height > w.height ? this : w;
-    const minW = this.height > w.height ? w : this;
-
-    maxW.web.map((r, i) =>
-      // Pad the smaller one's output with id
-      r.concat(minW.height > i ? minW.web[i] : createIds(minW.output))
-    );
-  }
-
-  // TODO: Make "bending over" to make [something] -> 1 web
 }
 
 // Creates list of Id's

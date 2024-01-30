@@ -56,3 +56,22 @@ export const parseInputGraph = (input: any): PlanarGraph => {
     throw new Error("Error in parseInputGraph: Invalid input");
   return new PlanarGraph(input.top, input.bot, input.vertices);
 };
+
+export const webToOutput = (w: Web, computerOutput: boolean): string => {
+  if (computerOutput) {
+    return JSON.stringify(
+      w.web.map((r) =>
+        r.map((g) => webGenTextToText[WG[g] as keyof typeof webGenTextToText])
+      )
+    );
+  } else {
+    return w.web
+      .map((r) =>
+        r
+          .map((e) => webGenTextToText[WG[e] as keyof typeof webGenTextToText])
+          .join("")
+      )
+      .reverse()
+      .join("\n");
+  }
+};

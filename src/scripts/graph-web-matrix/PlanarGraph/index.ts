@@ -70,6 +70,18 @@ class PlanarGraph {
     return PlanarGraph.neighbours(v, vData).length;
   }
 
+  static nVertices(vData: VertexData[]): number {
+    return vData.length;
+  }
+
+  static flatten(g: PlanarGraph): PlanarGraph {
+    return new PlanarGraph(
+      [],
+      [...g.bot, ...g.top.reverse()],
+      [...g.edges.entries()]
+    );
+  }
+
   neighbours(v: Vertex): Vertex[] {
     const neighbours = this.edges.get(v);
     return neighbours !== undefined ? neighbours : [];
@@ -77,6 +89,14 @@ class PlanarGraph {
 
   degree(v: Vertex): number {
     return this.neighbours(v).length;
+  }
+
+  nVertices(): number {
+    return this.edges.size;
+  }
+
+  flatten(): PlanarGraph {
+    return PlanarGraph.flatten(this);
   }
 }
 

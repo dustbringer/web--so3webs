@@ -1,8 +1,8 @@
 import * as math from "mathjs";
 
-import * as W from "./Web";
-import Web from "./Web";
-import { WebGenerator as WG } from "./Web";
+import * as W from ".";
+import Web from ".";
+import { WebGenerator as WG } from ".";
 
 // Matrices
 // - indexed with [row][col]
@@ -45,6 +45,9 @@ export const genToMatrix = (w: WG) => {
   }
 };
 
+// Note: this is extremely inefficient on ram
+// Need to manually fix: store as sparse matrix and use "sparse kronecker product"
+//   which mathjs doesnt have
 export const webRowToMatrix = (w: WG[]): number[][] => {
   return w.reduce(
     (acc, cur) => math.kron(acc, genToMatrix(cur)) as unknown as number[][],
@@ -54,9 +57,9 @@ export const webRowToMatrix = (w: WG[]): number[][] => {
 
 const webToMatrix = (w: Web): number[][] => {
   // console.log(w.web.map(webRowToMatrix));
-  const matrices = w.web.map(webRowToMatrix);
-  if (matrices.length === 0) return [[1]];
-  else return matrices.reduce((acc, cur) => math.multiply(cur, acc)); // compose rows
+  return w.web
+    .map(webRowToMatrix)
+    .reduce((acc, cur) => math.multiply(cur, acc)); // compose rows
 };
 
 export default webToMatrix;
