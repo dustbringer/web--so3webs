@@ -11,7 +11,8 @@ import { HelmetProvider } from "react-helmet-async";
 import GlobalProvider from "./context/GlobalContext";
 import ErrorPage from "./error-page";
 import Root from "./routes/Root";
-import Translator from "./routes/Translator";
+import TranslatorPage from "./routes/Translator";
+import RandomPage from "./routes/Random";
 
 const router = createHashRouter([
   {
@@ -21,7 +22,11 @@ const router = createHashRouter([
   },
   {
     path: "/translator",
-    element: <Translator />,
+    element: <TranslatorPage />,
+  },
+  {
+    path: "/random",
+    element: <RandomPage />,
   },
 ]);
 

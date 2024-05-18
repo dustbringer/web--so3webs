@@ -3,6 +3,6 @@ export type Link = {
   path: string;
 };
 
-const navLinks: Link[] = [{ name: "Translator", path: "/translator" }];
+const navLinks: Link[] = [{ name: "Translator", path: "/translator"}, { name: "Random", path: "/random"}];
 
 export default navLinks;

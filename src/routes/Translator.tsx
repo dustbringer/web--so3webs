@@ -298,6 +298,15 @@ const info = {
           this case it is a list of rows (from bottom to top) where each row is
           a list of generators in the order you would expect.
         </DialogContentText>
+        <DialogContentText gutterBottom>
+          <em>Note</em>: The algorithm ignores floating diagrams since the lack
+          of anchors (top or bot). This case is more complicated and I don't
+          have time to think about it. To process floating diagrams, you must
+          manually remove an edge from the diagram, and connect the vertices to
+          either top or bottom by a new edge. Then replace a cup or cap
+          (depending on if it's connected to the top or bottom), for the missing
+          edge after processing.
+        </DialogContentText>
         <hr />
         <DialogContentText gutterBottom>
           Corresponding web symbols:
@@ -356,6 +365,13 @@ const info = {
         <DialogContentText gutterBottom>
           Output is a matrix. (You may need to fiddle around a bit for MathJax
           to display it properly.)
+        </DialogContentText>
+        <DialogContentText gutterBottom>
+          <em>Note</em>: This uses the graph to web algorithm, which ignores
+          floating diagrams. To process floating diagrams, you must manually
+          remove an edge, and connect the vertices to either top or bottom by a
+          new edge. Then multiply by a cup/cap, (depending on if it's connected
+          to the top or bottom) for the missing edge after processing.
         </DialogContentText>
         <hr />
         <DialogContentText>
